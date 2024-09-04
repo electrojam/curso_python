@@ -25,7 +25,7 @@ class Vehiculo:
     def parar_motor(self):
         raise NotImplementedError("Este método debe ser implementado por la subclase")
     
-    class Carro(Vehiculo): # class Carro hereda de la super clase o padre Vehiculo
+class Carro(Vehiculo): # class Carro hereda de la super clase o padre Vehiculo
         def iniciar_motor(self):
             if not self.disponible:
                 return f"El motor del auto {self.marca} está en marcha."
