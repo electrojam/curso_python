@@ -26,89 +26,79 @@ class Vehiculo:
         raise NotImplementedError("Este método debe ser implementado por la subclase")
     
 class Carro(Vehiculo): # class Carro hereda de la super clase o padre Vehiculo
-        def iniciar_motor(self):
-            if not self.disponible:
-                return f"El motor del auto {self.marca} está en marcha."
-            else:
-                return f"El auto {self.marca} no está disponible."
-            
-        def parar_motor(self):
-            if self.disponible:
-                return f"El motor del coche {self.marca} se ha detenido."
-            else:
-                return f"El auto {self.marca} no está disponble."
+    def iniciar_motor(self):
+        if not self.disponible:
+            return f"El motor del auto {self.marca} está en marcha."
+        else:
+            return f"El auto {self.marca} no está disponible."
+        
+    def parar_motor(self):
+        if self.disponible:
+            return f"El motor del coche {self.marca} se ha detenido."
+        else:
+            return f"El auto {self.marca} no está disponble."
 
-
+class Bicicleta(Vehiculo):
+    def inicar_motor(self):
+        if not self.disponible:
+            return f"La bicicleta {self.marca} está en marcha"
+        else:
+            return f"La bibicleta {self.marca} No está disponible"
+    
+    def parar_motor(self):
+        if self.disponible:
+            return f"La bicicleta {self.marca} se ha detenido"
+        else:
+            return f"La bicicleta {self.marca} No está disponible"
+        
+class Camion(Vehiculo):
+    def iniciar_motor(self):
+        if not self.disponible:
+            return f"El motor del camión {self.marca} está en marcha"
+        else:
+            return f"El camión {self.marca} no está disponible"
+        
+    def parar_motor(self):
+        if self.disponible:
+            return f"El motor del camión {self.marca} se ha detenido"
+        else:
+            return f"El camión {self.marca} no está disponible"
+        
 class Cliente:
-    def __init__(self, nombre) -> None:
+    def __init__(self, nombre):
         self.nombre = nombre
         self.vehiculos_comprados = []
 
-    def comprar_vehiculo(self, vehiculo):
-        if vehiculo.verificar_disponibilidad():
-            vehiculo.vender()
-            self.vehiculos_comprados.append(vehiculo)
+    def comprar_vehiculos(self, vehiculo: Vehiculo): # recibo parámetro de clase Vehiculo
+        if vehiculo.verificar_disponibilidad(): #verificamos si vehículo está disponible
+            vehiculo.vender() # vendemos el vehículo
+            self.vehiculos_comprados.append(vehiculo) #añadimos objeto vehiculo a la colección
         else:
-            print(f'El vehículo {vehiculo.marca} {vehiculo.modelo} no está disponible.')
-    
-    def consultar_vehiculo(self, vehiculo):
-        disponibilidad = "disponible" if vehiculo.verificar_disponibilidad() else "no disponible"
-        print(f"El vehículo {vehiculo.marca} {vehiculo.modelo} está {disponibilidad} y cuesta {vehiculo.precio}")
+            print(f"El vehículo {vehiculo.marca} no está disponible")
 
+    def consultar_vehiculo(self, vehiculo: Vehiculo):
+        if vehiculo.verificar_disponibilidad():
+            disponibilidad = "Disponible"
+        else:
+            disponibilidad = "No disponible"
+        print(f"El {vehiculo.marca} está {disponibilidad} y tiene un valor de {vehiculo.obtener_precio()}")
 
-class Concesionaria:
-    def __init__(self) -> None:
+class Concecionaria():
+    def __init__(self):
         self.vehiculos = []
         self.clientes = []
-
-    def agregar_vehiculo(self, vehiculo):
+    
+    def agregar_vehiculo(self, vehiculo: Vehiculo):
         self.vehiculos.append(vehiculo)
-        print(f'El vehículo {vehiculo.marca} {vehiculo.modelo} ha sido agregado al inventario.')
-
-    def registrar_cliente(self, cliente):
-        self.clientes.append(cliente)
-        print(f'El cliente {cliente.nombre} ha sido registrado.')
-
+        print(f"El vehículo {vehiculo.marca} ha sido añadido al inventario")
+    
+    def registrar_cliente(self, cliente: Cliente):
+        self.cliente.append(cliente)
+        print(f"El cliente {cliente.nombre} ha sido registrado")
+    
     def mostrar_vehiculos_disponibles(self):
-        print('Vehículos disponibles en la concesionaria:')
+        print("Vehículos disponbiles en la concesionaria")
         for vehiculo in self.vehiculos:
-            if vehiculo.verificar_disponibilidad():
-                print(f"- {vehiculo.marca} {vehiculo.modelo} por ${vehiculo.obtener_precio()}")
-
-# Crear vehículos
-vehiculo1 = Vehiculo("Toyota", "Corolla", 20000)
-vehiculo2 = Vehiculo("Ford", "Fiesta", 15000)
-vehiculo3 = Vehiculo("Honda", "Civic", 22000)
-vehiculo4 = Vehiculo("Chevrolet", "Cruze", 18000)
-
-# Crear clientes
-cliente1 = Cliente("Juan")
-cliente2 = Cliente("Ana")
-cliente3 = Cliente("Carlos")
-
-# Crear concesionaria
-concesionaria = Concesionaria()
-concesionaria.agregar_vehiculo(vehiculo1)
-concesionaria.agregar_vehiculo(vehiculo2)
-concesionaria.agregar_vehiculo(vehiculo3)
-concesionaria.agregar_vehiculo(vehiculo4)
-concesionaria.registrar_cliente(cliente1)
-concesionaria.registrar_cliente(cliente2)
-concesionaria.registrar_cliente(cliente3)
-
-# Mostrar vehículos disponibles
-concesionaria.mostrar_vehiculos_disponibles()
-
-# Cliente consulta un coche
-cliente1.consultar_vehiculo(vehiculo2)
-
-# Realizar compras
-cliente1.comprar_vehiculo(vehiculo1)
-cliente2.comprar_vehiculo(vehiculo3)
-cliente3.comprar_vehiculo(vehiculo2)
-
-# Mostrar vehículos disponibles después de las compras
-concesionaria.mostrar_vehiculos_disponibles()
-
-# Cliente intenta comprar un vehículo ya vendido
-cliente3.comprar_vehiculo(vehiculo1)
+            if vehiculo.disponibilidad:
+                print(f"-- El vehículo {vehiculo.marca} {vehiculo.modelo} por {vehiculo.obtener_precio()}")
+            
