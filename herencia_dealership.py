@@ -83,7 +83,7 @@ class Cliente:
             disponibilidad = "No disponible"
         print(f"El {vehiculo.marca} está {disponibilidad} y tiene un valor de {vehiculo.obtener_precio()}")
 
-class Concecionaria():
+class Concecionaria:
     def __init__(self):
         self.vehiculos = []
         self.clientes = []
@@ -93,12 +93,32 @@ class Concecionaria():
         print(f"El vehículo {vehiculo.marca} ha sido añadido al inventario")
     
     def registrar_cliente(self, cliente: Cliente):
-        self.cliente.append(cliente)
+        self.clientes.append(cliente)
         print(f"El cliente {cliente.nombre} ha sido registrado")
     
     def mostrar_vehiculos_disponibles(self):
-        print("Vehículos disponbiles en la concesionaria")
+        print("Vehículos disponbiles en la tienda")
         for vehiculo in self.vehiculos:
-            if vehiculo.disponibilidad:
+            if vehiculo.verificar_disponibilidad():
                 print(f"-- El vehículo {vehiculo.marca} {vehiculo.modelo} por {vehiculo.obtener_precio()}")
-            
+
+carro1 = Carro("Toyota", "Corolla", 20000)
+bicicleta1 = Bicicleta("Yamaha", "MT-07", 7000)
+camion1 = Camion("Volvo", "FH16", 80000)
+
+cliente1 = Cliente("James")
+
+concecionaria = Concecionaria()
+
+concecionaria.agregar_vehiculo(carro1)
+concecionaria.agregar_vehiculo(bicicleta1)
+concecionaria.agregar_vehiculo(camion1)
+
+# Mostrar vehículos disponibles
+concecionaria.mostrar_vehiculos_disponibles()
+
+# Cliente consulta un vehículo
+cliente1.consultar_vehiculo(carro1)
+
+# Cliente comprar un vehículo
+cliente1.comprar_vehiculos
